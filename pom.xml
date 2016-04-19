@@ -46,8 +46,8 @@
     </scm>
 
     <ciManagement>
-        <system>jenkins</system>
-        <url>http://jenkins.bcnet.bcb.gov.br/jenkins/</url>
+        <system>Travis</system>
+        <url>https://travis-ci.org/thiagogarbazza/domain-validation</url>
     </ciManagement>
 
     <issueManagement>
