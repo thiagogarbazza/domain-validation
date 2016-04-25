@@ -137,7 +137,6 @@
                 <version>2.5.3</version>
                 <configuration>
                     <preparationGoals>clean verify</preparationGoals>
-                    <releaseProfiles>profile-release</releaseProfiles>
                     <tagNameFormat>@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
@@ -146,7 +145,7 @@
 
     <profiles>
         <profile>
-            <id>profile-release</id>
+            <id>profile-deploy</id>
 
             <build>
                 <plugins>

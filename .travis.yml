@@ -2,7 +2,7 @@ language: java
 sudo: false
 
 script:
-    - mvn clean verify
+    - mvn verify
 
 after_success:
-    - mvn deploy --settings travis-maven-deploy-settings.xml
+    - mvn deploy --settings travis-maven-deploy-settings.xml -Pprofile-deploy
