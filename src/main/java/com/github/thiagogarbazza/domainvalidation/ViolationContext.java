@@ -3,6 +3,8 @@ package com.github.thiagogarbazza.domainvalidation;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.github.thiagogarbazza.domainvalidation.util.PropertieUtil;
+
 import ch.lambdaj.function.argument.Argument;
 
 public class ViolationContext implements Cloneable {
@@ -10,7 +12,8 @@ public class ViolationContext implements Cloneable {
     private Violations violations = new Violations();
 
     public ViolationContext add(Violation violation) {
-        return add("violation-global", violation);
+        final String violationGlobalName = PropertieUtil.getValue("violation-global");
+        return add(violationGlobalName, violation);
     }
 
     public ViolationContext add(String field, Violation violation) {
