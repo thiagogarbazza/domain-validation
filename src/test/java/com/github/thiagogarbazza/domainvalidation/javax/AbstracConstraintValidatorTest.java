@@ -11,6 +11,7 @@ import org.junit.Test;
 import com.github.thiagogarbazza.domainvalidation.Validator;
 import com.github.thiagogarbazza.domainvalidation.Violation;
 import com.github.thiagogarbazza.domainvalidation.ViolationException;
+import com.github.thiagogarbazza.domainvalidation.Violations;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,9 +37,9 @@ public class AbstracConstraintValidatorTest {
         try {
             validator.onCreate(entity);
         } catch (ViolationException e) {
-            final Map<String, Collection<Violation>> violations = e.getViolations();
+            final Violations violations = e.getViolations();
             assertEquals(1, violations.size());
-            Collection<Violation> violation = violations.get("violation-global");
+            Collection<Violation> violation = violations.getGlobals();
             assertEquals(1, violation.size());
             assertEquals(1, violation.size());
             final Violation violationRestrict = get(violation, 0);
@@ -53,9 +54,9 @@ public class AbstracConstraintValidatorTest {
         try {
             validator.onCreate(entity);
         } catch (ViolationException e) {
-            final Map<String, Collection<Violation>> violations = e.getViolations();
+            final Violations violations = e.getViolations();
             assertEquals(1, violations.size());
-            Collection<Violation> violation = violations.get("code");
+            Collection<Violation> violation = violations.getFields().get("code");
             assertEquals(1, violation.size());
             assertEquals(1, violation.size());
             final Violation violationRestrict = get(violation, 0);

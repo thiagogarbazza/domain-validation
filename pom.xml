@@ -17,6 +17,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <dependency.commons-collections4.version>4.1</dependency.commons-collections4.version>
+        <dependency.commons-lang3.version>3.4</dependency.commons-lang3.version>
         <dependency.junit.version>4.12</dependency.junit.version>
         <dependency.lambdaj.version>2.3.3</dependency.lambdaj.version>
         <dependency.lombok.version>1.16.8</dependency.lombok.version>
@@ -69,11 +70,16 @@
             <scope>provided</scope>
         </dependency>
 
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
             <version>${dependency.commons-collections4.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${dependency.commons-lang3.version}</version>
         </dependency>
 
         <dependency>

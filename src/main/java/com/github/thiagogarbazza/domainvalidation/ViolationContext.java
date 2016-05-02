@@ -1,10 +1,5 @@
 package com.github.thiagogarbazza.domainvalidation;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import com.github.thiagogarbazza.domainvalidation.util.PropertieUtil;
-
 import ch.lambdaj.function.argument.Argument;
 
 public class ViolationContext implements Cloneable {
@@ -12,24 +7,13 @@ public class ViolationContext implements Cloneable {
     private Violations violations = new Violations();
 
     public ViolationContext add(Violation violation) {
-        final String violationGlobalName = PropertieUtil.getValue("violation-global");
-        return add(violationGlobalName, violation);
-    }
-
-    public ViolationContext add(String field, Violation violation) {
-        mapInitializer(field);
-        get(field).add(violation);
+        violations.add(violation);
         return this;
     }
 
-    private void mapInitializer(String field) {
-        if (!violations.containsKey(field)) {
-            violations.put(field, new ArrayList<Violation>());
-        }
-    }
-
-    private Collection<Violation> get(String field) {
-        return violations.get(field);
+    public ViolationContext add(String field, Violation violation) {
+        violations.add(field, violation);
+        return this;
     }
 
     public ViolationContext add(Argument field, Violation violation) {
