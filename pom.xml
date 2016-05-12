@@ -154,7 +154,11 @@
                 <version>2.5.3</version>
                 <configuration>
                     <preparationGoals>clean verify</preparationGoals>
+                    <goals>deploy</goals>
                     <tagNameFormat>@{project.version}</tagNameFormat>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>profile-release</releaseProfiles>
                 </configuration>
             </plugin>
         </plugins>
@@ -162,7 +166,7 @@
 
     <profiles>
         <profile>
-            <id>profile-deploy</id>
+            <id>profile-release</id>
 
             <build>
                 <plugins>
@@ -204,6 +208,21 @@
                             </execution>
                         </executions>
                     </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                      </plugin>
                 </plugins>
             </build>
         </profile>

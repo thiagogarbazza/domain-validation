@@ -5,4 +5,4 @@ script:
     - mvn verify
 
 after_success:
-    - mvn deploy --settings travis-maven-deploy-settings.xml -Pprofile-deploy
+    - mvn deploy --settings travis-maven-deploy-settings.xml -Pprofile-release
