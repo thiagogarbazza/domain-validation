@@ -1,48 +1,63 @@
 package com.github.thiagogarbazza.domainvalidation;
 
+import lombok.Getter;
+
 import java.io.Serializable;
 
-import org.apache.commons.lang3.builder.CompareToBuilder;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import lombok.Getter;
+import static java.text.MessageFormat.format;
 
 @Getter
 public final class Violation implements Comparable<Violation>, Serializable {
 
     private final String code;
+
     private final String message;
 
-    public Violation(final String code, final String message) {
+    private ViolationType type;
+
+    Violation(final ViolationType type, final String code, final String message) {
+        this.type = type;
         this.code = code;
         this.message = message;
     }
 
-    public Violation(final String code, final String message, final Object[] arguments) {
+    Violation(final ViolationType type, final String code, final String message, final Object[] arguments) {
+        this.type = type;
         this.code = code;
-        this.message = String.format(message, arguments);
+        this.message = format(message, arguments);
     }
 
     @Override
-    public int compareTo(Violation o) {
-        if (o == null) {
+    public int compareTo(Violation that) {
+        if (that == null) {
             return 1;
         }
-        return new CompareToBuilder().append(this.code, o.code).toComparison();
+
+        return this.code.compareTo(that.code);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(this.code).toHashCode();
+        return code != null ? code.hashCode() : 0;
     }
 
     @Override
-    public boolean equals(final Object object) {
-        if (object instanceof Violation) {
-            Violation v = (Violation) object;
-            return new EqualsBuilder().append(this.code, v.code).isEquals();
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
         }
-        return false;
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Violation that = (Violation) o;
+
+        return code != null ? code.equals(that.code) : that.code == null;
+    }
+
+    @Override
+    public String toString() {
+        return this.code;
     }
 }

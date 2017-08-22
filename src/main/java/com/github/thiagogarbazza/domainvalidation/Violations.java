@@ -1,60 +1,39 @@
 package com.github.thiagogarbazza.domainvalidation;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.Collection;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.apache.commons.collections4.Closure;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.mutable.MutableInt;
-
-import lombok.Getter;
-
-import static org.apache.commons.collections4.IterableUtils.forEach;
+import static com.github.thiagogarbazza.domainvalidation.ViolationType.ERROR;
+import static com.github.thiagogarbazza.domainvalidation.ViolationType.WARNING;
 
 @Getter
-public class Violations {
+@NoArgsConstructor
+class Violations extends TreeSet<Violation> {
 
-    private Collection<Violation> globals = new TreeSet();
-    private Map<String, Collection<Violation>> fields = new TreeMap<String, Collection<Violation>>();
-
-    public void add(Violation violation) {
-        globals.add(violation);
+    private Violations(Collection<? extends Violation> collection) {
+        super(collection);
     }
 
-    public void add(String field, Violation violation) {
-        mapInitializer(field);
-        fields.get(field).add(violation);
+    public Violations errors() {
+        return filterByType(ERROR);
     }
 
-    private void mapInitializer(String field) {
-        if (!fields.containsKey(field)) {
-            fields.put(field, new TreeSet<Violation>());
-        }
+    public Violations warnings() {
+        return filterByType(WARNING);
     }
 
-    public void clear() {
-        globals.clear();
-        fields.clear();
-    }
+    private Violations filterByType(ViolationType type) {
+        Violations violations = new Violations();
 
-    public boolean isEmpty() {
-        return CollectionUtils.isEmpty(globals) && MapUtils.isEmpty(fields);
-    }
-
-    public int size() {
-        final MutableInt size = new MutableInt();
-        size.add(globals.size());
-
-        forEach(fields.values(), new Closure<Collection<Violation>>() {
-            @Override
-            public void execute(final Collection<Violation> violations) {
-                size.add(violations.size());
+        for (Violation violation : this) {
+            if (violation.getType().equals(type)) {
+                violations.add(violation);
             }
-        });
+        }
 
-        return size.toInteger();
+        return violations;
     }
 }

@@ -1,10 +1,16 @@
 package com.github.thiagogarbazza.domainvalidation;
 
-public interface Validator<T> {
+/**
+ * @param <E> Entity
+ * @param <F> Filter
+ */
+public interface Validator<E, F> {
 
-    void onCreate(final T entity) throws ViolationException;
+    void onCreate(final E entity) throws ViolationException;
 
-    void onDelete(final T entity) throws ViolationException;
+    void onDelete(final E entity) throws ViolationException;
 
-    void onUpdate(final T entity) throws ViolationException;
+    void onSearch(final F entity) throws ViolationException;
+
+    void onUpdate(final E entity) throws ViolationException;
 }
