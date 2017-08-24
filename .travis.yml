@@ -17,8 +17,8 @@ install:
   - mvn compile
 
 script:
-  - mvn verify
-  - mvn org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
+  - mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify
+  - mvn sonar:sonar
 
 cache:
   directories:
