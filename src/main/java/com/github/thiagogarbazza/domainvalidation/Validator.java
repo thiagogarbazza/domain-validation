@@ -6,11 +6,11 @@ package com.github.thiagogarbazza.domainvalidation;
  */
 public interface Validator<E, F> {
 
-    void onCreate(final E entity) throws ViolationException;
+    void onCreate(final E entity);
 
-    void onDelete(final E entity) throws ViolationException;
+    void onDelete(final E entity);
 
-    void onSearch(final F entity) throws ViolationException;
+    void onSearch(final F entity);
 
-    void onUpdate(final E entity) throws ViolationException;
+    void onUpdate(final E entity);
 }
