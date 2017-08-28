@@ -33,11 +33,11 @@ public class ViolationContext {
         return error(matcher.matches(object), code, message, arguments);
     }
 
-    public void isValid() throws ViolationException {
+    public void isValid() {
         isValid(false);
     }
 
-    public void isValid(boolean ignoreWarning) throws ViolationException {
+    public void isValid(boolean ignoreWarning) {
         Violations thatViolations = ignoreWarning ? violations.errors() : (Violations) violations.clone();
         violations.clear();
 

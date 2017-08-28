@@ -13,7 +13,7 @@ public final class Violation implements Comparable<Violation>, Serializable {
 
     private final String message;
 
-    private ViolationType type;
+    private final ViolationType type;
 
     Violation(final ViolationType type, final String code, final String message) {
         this.type = type;
@@ -22,9 +22,7 @@ public final class Violation implements Comparable<Violation>, Serializable {
     }
 
     Violation(final ViolationType type, final String code, final String message, final Object[] arguments) {
-        this.type = type;
-        this.code = code;
-        this.message = format(message, arguments);
+        this(type, code, format(message, arguments));
     }
 
     @Override
