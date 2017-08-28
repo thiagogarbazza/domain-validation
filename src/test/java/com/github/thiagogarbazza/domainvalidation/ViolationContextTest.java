@@ -1,6 +1,5 @@
 package com.github.thiagogarbazza.domainvalidation;
 
-import lombok.Getter;
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,17 +32,17 @@ public class ViolationContextTest {
 
     @Test
     public void verifyWhenThereIgnoreAWarnningsViolation() {
-        context.warning(false, WARNING_CODE, WARNING_MESSAGE);
+        context.warning(true, WARNING_CODE, WARNING_MESSAGE);
 
-        context.isValid(true);
+        context.toProcess(true);
     }
 
     @Test
     public void verifyWhenThereIsAErrorViolation() {
-        context.error(false, ERROR_CODE, ERROR_MESSAGE);
+        context.error(true, ERROR_CODE, ERROR_MESSAGE);
 
         try {
-            context.isValid();
+            context.toProcess();
 
             fail(EXPECTED_A_VIOLATION_EXCEPTION);
         } catch (ViolationException e) {
@@ -60,7 +59,7 @@ public class ViolationContextTest {
         context.error(WARNING_CODE, IsEqual.equalTo(ERROR_CODE), ERROR_CODE, ERROR_MESSAGE);
 
         try {
-            context.isValid();
+            context.toProcess();
 
             fail(EXPECTED_A_VIOLATION_EXCEPTION);
         } catch (ViolationException e) {
@@ -74,10 +73,10 @@ public class ViolationContextTest {
 
     @Test
     public void verifyWhenThereIsAErrorViolationWithMessageArguments() {
-        context.error(false, ERROR_CODE, MESSAGE_WITH_ARGUMENTS, 125);
+        context.error(true, ERROR_CODE, MESSAGE_WITH_ARGUMENTS, 125);
 
         try {
-            context.isValid();
+            context.toProcess();
 
             fail(EXPECTED_A_VIOLATION_EXCEPTION);
         } catch (ViolationException e) {
@@ -94,7 +93,7 @@ public class ViolationContextTest {
         context.error(WARNING_CODE, IsEqual.equalTo(ERROR_CODE), ERROR_CODE, MESSAGE_WITH_ARGUMENTS, 125);
 
         try {
-            context.isValid();
+            context.toProcess();
 
             fail(EXPECTED_A_VIOLATION_EXCEPTION);
         } catch (ViolationException e) {
@@ -108,10 +107,10 @@ public class ViolationContextTest {
 
     @Test
     public void verifyWhenThereIsAWarnningViolation() {
-        context.warning(false, WARNING_CODE, WARNING_MESSAGE);
+        context.warning(true, WARNING_CODE, WARNING_MESSAGE);
 
         try {
-            context.isValid();
+            context.toProcess();
 
             fail(EXPECTED_A_VIOLATION_EXCEPTION);
         } catch (ViolationException e) {
@@ -128,7 +127,7 @@ public class ViolationContextTest {
         context.warning(WARNING_CODE, IsEqual.equalTo(ERROR_CODE), WARNING_CODE, WARNING_MESSAGE);
 
         try {
-            context.isValid();
+            context.toProcess();
 
             fail(EXPECTED_A_VIOLATION_EXCEPTION);
         } catch (ViolationException e) {
@@ -142,10 +141,10 @@ public class ViolationContextTest {
 
     @Test
     public void verifyWhenThereIsAWarnningViolationWithMessageArguments() {
-        context.warning(false, WARNING_CODE, MESSAGE_WITH_ARGUMENTS, 185);
+        context.warning(true, WARNING_CODE, MESSAGE_WITH_ARGUMENTS, 185);
 
         try {
-            context.isValid();
+            context.toProcess();
 
             fail(EXPECTED_A_VIOLATION_EXCEPTION);
         } catch (ViolationException e) {
@@ -162,7 +161,7 @@ public class ViolationContextTest {
         context.warning(WARNING_CODE, IsEqual.equalTo(ERROR_CODE), WARNING_CODE, MESSAGE_WITH_ARGUMENTS, 185);
 
         try {
-            context.isValid();
+            context.toProcess();
 
             fail(EXPECTED_A_VIOLATION_EXCEPTION);
         } catch (ViolationException e) {
@@ -176,6 +175,6 @@ public class ViolationContextTest {
 
     @Test
     public void verifyWhenThereNoIsAViolation() {
-        context.isValid();
+        context.toProcess();
     }
 }
