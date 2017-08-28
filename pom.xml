@@ -10,7 +10,7 @@
   <version>0.0.3-SNAPSHOT</version>
 
   <name>Domain validation</name>
-  <description>A simple way to standardize the domain validation</description>
+  <description>A simple framework to write domain validation.</description>
   <url>https://github.com/thiagogarbazza/domain-validation</url>
 
   <properties>
