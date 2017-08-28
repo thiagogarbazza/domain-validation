@@ -108,6 +108,10 @@
           <encoding>${project.build.sourceEncoding}</encoding>
           <debug>true</debug>
           <verbose>true</verbose>
+          <annotationProcessors>
+            <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor
+            </annotationProcessor>
+          </annotationProcessors>
         </configuration>
       </plugin>
 
