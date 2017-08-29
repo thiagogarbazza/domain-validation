@@ -21,6 +21,8 @@ Example using maven:
 ```
 
 ## Usage
+
+Simple usage:
 ```java
 public void onCreateValidation(Domain domain) throws ViolationException {
   ViolationContext context = new ViolationContext();
@@ -32,6 +34,17 @@ public void onCreateValidation(Domain domain) throws ViolationException {
 }
 ```
 
+Usage with [org.hamcrest]:
+```java
+public void onCreateValidation(Domain domain) throws ViolationException {
+  ViolationContext context = new ViolationContext();
 
+  context.error(domain.getPropertyA(), nullValue(), "ERROR_CODE", "ERROR_MESSAGE");
+  context.warning(domain.getPropertyB(), equalTo(""), "WARNING_CODE", "WARNING_MESSAGE");
 
+  context.toProcess();
+}
+```
+
+[org.hamcrest]: https://github.com/hamcrest/JavaHamcrest
 [Maven Central repository]: http://mvnrepository.com/artifact/com.github.thiagogarbazza/domain-validation
