@@ -2,10 +2,10 @@ package com.github.thiagogarbazza.domainvalidation.util;
 
 import org.junit.Test;
 
-import static com.github.thiagogarbazza.domainvalidation.util.PropertieUtil.bundleProperty;
+import static com.github.thiagogarbazza.domainvalidation.util.ResourceBundleUtil.bundleProperty;
 import static org.junit.Assert.assertNotNull;
 
-public class PropertieUtilTest {
+public class ResourceBundleTest {
 
     @Test
     public void verifyExistFile() {

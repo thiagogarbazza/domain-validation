@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public final class PropertieUtil {
+public final class ResourceBundleUtil {
 
     private static final ResourceBundle APPLICATION_BUNDLE = ResourceBundle.getBundle("domain-validation");
 

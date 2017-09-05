@@ -2,71 +2,41 @@ package com.github.thiagogarbazza.domainvalidation;
 
 import org.hamcrest.Matcher;
 
-import static com.github.thiagogarbazza.domainvalidation.ViolationType.ERROR;
-import static com.github.thiagogarbazza.domainvalidation.ViolationType.WARNING;
+public interface ViolationContext {
 
-public class ViolationContext {
+    ViolationContext error(boolean condition, String code);
 
-    private Violations violations = new Violations();
+    ViolationContext error(boolean condition, String code, String message);
 
-    public ViolationContext error(final boolean condition, final String code, final String message) {
-        if (condition) {
-            this.violations.add(new Violation(ERROR, code, message));
-        }
+    ViolationContext error(boolean condition, String code, Object... arguments);
 
-        return this;
-    }
+    ViolationContext error(boolean condition, String code, String message, Object... arguments);
 
-    public ViolationContext error(final boolean condition, final String code, final String message, final Object... arguments) {
-        if (condition) {
-            this.violations.add(new Violation(ERROR, code, message, arguments));
-        }
+    ViolationContext error(Object object, Matcher<?> matcher, String code);
 
-        return this;
-    }
+    ViolationContext error(Object object, Matcher<?> matcher, String code, String message);
 
-    public ViolationContext error(final Object object, final Matcher<?> matcher, final String code, final String message) {
-        return error(!matcher.matches(object), code, message);
-    }
+    ViolationContext error(Object object, Matcher<?> matcher, String code, Object... arguments);
 
-    public ViolationContext error(final Object object, final Matcher<?> matcher, final String code, final String message, final Object... arguments) {
-        return error(!matcher.matches(object), code, message, arguments);
-    }
+    ViolationContext error(Object object, Matcher<?> matcher, String code, String message, Object... arguments);
 
-    public void toProcess() {
-        toProcess(false);
-    }
+    void toProcess();
 
-    public void toProcess(boolean ignoreWarning) {
-        Violations thatViolations = ignoreWarning ? violations.errors() : (Violations) violations.clone();
-        violations.clear();
+    void toProcess(boolean ignoreWarning);
 
-        if (!thatViolations.isEmpty()) {
-            throw new ViolationException(thatViolations);
-        }
-    }
+    ViolationContext warning(boolean condition, String code);
 
-    public ViolationContext warning(final boolean condition, final String code, final String message) {
-        if (condition) {
-            this.violations.add(new Violation(WARNING, code, message));
-        }
+    ViolationContext warning(boolean condition, String code, String message);
 
-        return this;
-    }
+    ViolationContext warning(boolean condition, String code, Object... arguments);
 
-    public ViolationContext warning(final boolean condition, final String code, final String message, final Object... arguments) {
-        if (condition) {
-            this.violations.add(new Violation(WARNING, code, message, arguments));
-        }
+    ViolationContext warning(boolean condition, String code, String message, Object... arguments);
 
-        return this;
-    }
+    ViolationContext warning(Object object, Matcher<?> matcher, String code);
 
-    public ViolationContext warning(final Object object, final Matcher<?> matcher, final String code, final String message) {
-        return warning(!matcher.matches(object), code, message);
-    }
+    ViolationContext warning(Object object, Matcher<?> matcher, String code, String message);
 
-    public ViolationContext warning(final Object object, final Matcher<?> matcher, final String code, final String message, final Object... arguments) {
-        return warning(!matcher.matches(object), code, message, arguments);
-    }
+    ViolationContext warning(Object object, Matcher<?> matcher, String code, Object... arguments);
+
+    ViolationContext warning(Object object, Matcher<?> matcher, String code, String message, Object... arguments);
 }

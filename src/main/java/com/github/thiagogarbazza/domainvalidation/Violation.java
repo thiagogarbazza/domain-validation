@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
+import static com.github.thiagogarbazza.domainvalidation.ViolationType.ERROR;
+import static com.github.thiagogarbazza.domainvalidation.ViolationType.WARNING;
 import static java.text.MessageFormat.format;
 
 @Getter
@@ -15,13 +17,13 @@ public final class Violation implements Comparable<Violation>, Serializable {
 
     private final ViolationType type;
 
-    Violation(final ViolationType type, final String code, final String message) {
+    private Violation(final ViolationType type, final String code, final String message) {
         this.type = type;
         this.code = code;
         this.message = message;
     }
 
-    Violation(final ViolationType type, final String code, final String message, final Object[] arguments) {
+    private Violation(final ViolationType type, final String code, final String message, final Object[] arguments) {
         this(type, code, format(message, arguments));
     }
 
@@ -57,5 +59,21 @@ public final class Violation implements Comparable<Violation>, Serializable {
     @Override
     public String toString() {
         return this.code;
+    }
+
+    static Violation createError(final String code, final String message) {
+        return new Violation(ERROR, code, message);
+    }
+
+    static Violation createError(final String code, final String message, final Object[] arguments) {
+        return new Violation(ERROR, code, message, arguments);
+    }
+
+    static Violation createWarning(final String code, final String message) {
+        return new Violation(WARNING, code, message);
+    }
+
+    static Violation createWarning(final String code, final String message, final Object[] arguments) {
+        return new Violation(WARNING, code, message, arguments);
     }
 }

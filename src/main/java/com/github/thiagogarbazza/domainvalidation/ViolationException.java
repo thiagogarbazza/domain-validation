@@ -2,7 +2,7 @@ package com.github.thiagogarbazza.domainvalidation;
 
 import lombok.Getter;
 
-import static com.github.thiagogarbazza.domainvalidation.util.PropertieUtil.bundleProperty;
+import static com.github.thiagogarbazza.domainvalidation.util.ResourceBundleUtil.bundleProperty;
 
 public class ViolationException extends RuntimeException {
 

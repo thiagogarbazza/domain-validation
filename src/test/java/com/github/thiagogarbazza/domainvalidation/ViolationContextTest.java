@@ -23,11 +23,11 @@ public class ViolationContextTest {
 
     private static final String WARNING_MESSAGE = "warning.message";
 
-    ViolationContext context;
+    ViolationContextImpl context;
 
     @Before
     public void setUp() {
-        context = new ViolationContext();
+        context = new ViolationContextImpl();
     }
 
     @Test
