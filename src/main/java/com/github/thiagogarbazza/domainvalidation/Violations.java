@@ -3,25 +3,21 @@ package com.github.thiagogarbazza.domainvalidation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
 import java.util.TreeSet;
 
 import static com.github.thiagogarbazza.domainvalidation.ViolationType.ERROR;
 import static com.github.thiagogarbazza.domainvalidation.ViolationType.WARNING;
+import static lombok.AccessLevel.PACKAGE;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = PACKAGE)
 class Violations extends TreeSet<Violation> {
 
-    private Violations(Collection<? extends Violation> collection) {
-        super(collection);
-    }
-
-    public Violations errors() {
+    Violations errors() {
         return filterByType(ERROR);
     }
 
-    public Violations warnings() {
+    Violations warnings() {
         return filterByType(WARNING);
     }
 

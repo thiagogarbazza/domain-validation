@@ -1,45 +1,38 @@
 package com.github.thiagogarbazza.domainvalidation;
 
-import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
 
 import static com.github.thiagogarbazza.domainvalidation.ViolationType.ERROR;
 import static com.github.thiagogarbazza.domainvalidation.ViolationType.WARNING;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class ViolationContextTest {
+public class ViolationContextMessageImplTest extends AbstractTestViolationContext {
 
-    private static final String ERROR_CODE = "error.code";
-
-    private static final String ERROR_MESSAGE = "error.message";
-
-    private static final String EXPECTED_A_VIOLATION_EXCEPTION = "Expected a violation exception";
-
-    private static final String MESSAGE_WITH_ARGUMENTS = "Test message with value {0}.";
-
-    private static final String WARNING_CODE = "warning.code";
-
-    private static final String WARNING_MESSAGE = "warning.message";
-
-    ViolationContextImpl context;
+    ViolationContextMessageImpl context;
 
     @Before
     public void setUp() {
-        context = new ViolationContextImpl();
+        context = new ViolationContextMessageImpl();
+    }
+
+    @Test
+    public void verifyWhenThereNoIsAViolation() {
+        context.toProcess();
     }
 
     @Test
     public void verifyWhenThereIgnoreAWarnningsViolation() {
-        context.warning(true, WARNING_CODE, WARNING_MESSAGE);
+        context.warning(true, WARNING_KEY, WARNING_MESSAGE);
 
         context.toProcess(true);
     }
 
     @Test
     public void verifyWhenThereIsAErrorViolation() {
-        context.error(true, ERROR_CODE, ERROR_MESSAGE);
+        context.error(true, ERROR_KEY, ERROR_MESSAGE);
 
         try {
             context.toProcess();
@@ -49,14 +42,14 @@ public class ViolationContextTest {
             assertEquals(1, e.getViolations().size());
             Violation violation = e.getViolations().iterator().next();
             assertEquals(ERROR, violation.getType());
-            assertEquals(ERROR_CODE, violation.getCode());
+            assertEquals(ERROR_KEY, violation.getKey());
             assertEquals(ERROR_MESSAGE, violation.getMessage());
         }
     }
 
     @Test
     public void verifyWhenThereIsAErrorViolationUsingHamcrest() {
-        context.error(WARNING_CODE, IsEqual.equalTo(ERROR_CODE), ERROR_CODE, ERROR_MESSAGE);
+        context.error(ERROR_KEY, equalTo(ERROR_KEY), ERROR_KEY, ERROR_MESSAGE);
 
         try {
             context.toProcess();
@@ -66,14 +59,14 @@ public class ViolationContextTest {
             assertEquals(1, e.getViolations().size());
             Violation violation = e.getViolations().iterator().next();
             assertEquals(ERROR, violation.getType());
-            assertEquals(ERROR_CODE, violation.getCode());
+            assertEquals(ERROR_KEY, violation.getKey());
             assertEquals(ERROR_MESSAGE, violation.getMessage());
         }
     }
 
     @Test
     public void verifyWhenThereIsAErrorViolationWithMessageArguments() {
-        context.error(true, ERROR_CODE, MESSAGE_WITH_ARGUMENTS, 125);
+        context.error(true, ERROR_KEY, MESSAGE_WITH_ARGUMENTS, "teste 0000");
 
         try {
             context.toProcess();
@@ -83,14 +76,14 @@ public class ViolationContextTest {
             assertEquals(1, e.getViolations().size());
             Violation violation = e.getViolations().iterator().next();
             assertEquals(ERROR, violation.getType());
-            assertEquals(ERROR_CODE, violation.getCode());
-            assertEquals("Test message with value 125.", violation.getMessage());
+            assertEquals(ERROR_KEY, violation.getKey());
+            assertEquals("Test message with value teste 0000.", violation.getMessage());
         }
     }
 
     @Test
     public void verifyWhenThereIsAErrorViolationWithMessageArgumentsUsingHamcrest() {
-        context.error(WARNING_CODE, IsEqual.equalTo(ERROR_CODE), ERROR_CODE, MESSAGE_WITH_ARGUMENTS, 125);
+        context.error(ERROR_KEY, equalTo(ERROR_KEY), ERROR_KEY, MESSAGE_WITH_ARGUMENTS, "teste 0002");
 
         try {
             context.toProcess();
@@ -100,14 +93,15 @@ public class ViolationContextTest {
             assertEquals(1, e.getViolations().size());
             Violation violation = e.getViolations().iterator().next();
             assertEquals(ERROR, violation.getType());
-            assertEquals(ERROR_CODE, violation.getCode());
-            assertEquals("Test message with value 125.", violation.getMessage());
+            assertEquals(ERROR_KEY, violation.getKey());
+            assertEquals("Test message with value teste 0002.", violation.getMessage());
         }
     }
 
+
     @Test
     public void verifyWhenThereIsAWarnningViolation() {
-        context.warning(true, WARNING_CODE, WARNING_MESSAGE);
+        context.warning(true, WARNING_KEY, WARNING_MESSAGE);
 
         try {
             context.toProcess();
@@ -117,14 +111,14 @@ public class ViolationContextTest {
             assertEquals(1, e.getViolations().size());
             Violation violation = e.getViolations().iterator().next();
             assertEquals(WARNING, violation.getType());
-            assertEquals(WARNING_CODE, violation.getCode());
+            assertEquals(WARNING_KEY, violation.getKey());
             assertEquals(WARNING_MESSAGE, violation.getMessage());
         }
     }
 
     @Test
     public void verifyWhenThereIsAWarnningViolationUsingHamcrest() {
-        context.warning(WARNING_CODE, IsEqual.equalTo(ERROR_CODE), WARNING_CODE, WARNING_MESSAGE);
+        context.warning(WARNING_KEY, equalTo(WARNING_KEY), WARNING_KEY, WARNING_MESSAGE);
 
         try {
             context.toProcess();
@@ -134,14 +128,14 @@ public class ViolationContextTest {
             assertEquals(1, e.getViolations().size());
             Violation violation = e.getViolations().iterator().next();
             assertEquals(WARNING, violation.getType());
-            assertEquals(WARNING_CODE, violation.getCode());
+            assertEquals(WARNING_KEY, violation.getKey());
             assertEquals(WARNING_MESSAGE, violation.getMessage());
         }
     }
 
     @Test
     public void verifyWhenThereIsAWarnningViolationWithMessageArguments() {
-        context.warning(true, WARNING_CODE, MESSAGE_WITH_ARGUMENTS, 185);
+        context.warning(true, WARNING_KEY, MESSAGE_WITH_ARGUMENTS, "teste 0004");
 
         try {
             context.toProcess();
@@ -151,14 +145,14 @@ public class ViolationContextTest {
             assertEquals(1, e.getViolations().size());
             Violation violation = e.getViolations().iterator().next();
             assertEquals(WARNING, violation.getType());
-            assertEquals(WARNING_CODE, violation.getCode());
-            assertEquals("Test message with value 185.", violation.getMessage());
+            assertEquals(WARNING_KEY, violation.getKey());
+            assertEquals("Test message with value teste 0004.", violation.getMessage());
         }
     }
 
     @Test
     public void verifyWhenThereIsAWarnningViolationWithMessageArgumentsUsingHamcrest() {
-        context.warning(WARNING_CODE, IsEqual.equalTo(ERROR_CODE), WARNING_CODE, MESSAGE_WITH_ARGUMENTS, 185);
+        context.warning(WARNING_KEY, equalTo(WARNING_KEY), WARNING_KEY, MESSAGE_WITH_ARGUMENTS, "teste 0006");
 
         try {
             context.toProcess();
@@ -168,13 +162,8 @@ public class ViolationContextTest {
             assertEquals(1, e.getViolations().size());
             Violation violation = e.getViolations().iterator().next();
             assertEquals(WARNING, violation.getType());
-            assertEquals(WARNING_CODE, violation.getCode());
-            assertEquals("Test message with value 185.", violation.getMessage());
+            assertEquals(WARNING_KEY, violation.getKey());
+            assertEquals("Test message with value teste 0006.", violation.getMessage());
         }
-    }
-
-    @Test
-    public void verifyWhenThereNoIsAViolation() {
-        context.toProcess();
     }
 }

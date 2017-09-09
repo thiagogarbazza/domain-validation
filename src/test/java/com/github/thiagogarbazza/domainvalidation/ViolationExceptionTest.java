@@ -13,8 +13,11 @@ public class ViolationExceptionTest {
 
     @Test
     public void verifyMessageInException() {
-        final ViolationException violationException = new ViolationException(new Violations());
+        final Violations violations = new Violations();
+        final String message = "There was a breach in the restrictions of the entity.";
+        final ViolationException violationException = new ViolationException(message, violations);
 
-        assertEquals("There was a breach in the restrictions of the entity.", violationException.getMessage());
+        assertEquals(message, violationException.getMessage());
+        assertEquals(violations, violationException.getViolations());
     }
 }

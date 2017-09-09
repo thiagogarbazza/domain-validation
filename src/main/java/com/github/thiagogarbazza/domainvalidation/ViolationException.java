@@ -2,15 +2,13 @@ package com.github.thiagogarbazza.domainvalidation;
 
 import lombok.Getter;
 
-import static com.github.thiagogarbazza.domainvalidation.util.ResourceBundleUtil.bundleProperty;
-
 public class ViolationException extends RuntimeException {
 
     @Getter
     private final Violations violations;
 
-    ViolationException(final Violations violations) {
-        super(bundleProperty("domain-validation.exception.message"));
+    ViolationException(final String message, final Violations violations) {
+        super(message);
         this.violations = violations;
     }
 }

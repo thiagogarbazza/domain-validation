@@ -11,20 +11,20 @@ import static java.text.MessageFormat.format;
 @Getter
 public final class Violation implements Comparable<Violation>, Serializable {
 
-    private final String code;
+    private final String key;
 
     private final String message;
 
     private final ViolationType type;
 
-    private Violation(final ViolationType type, final String code, final String message) {
+    private Violation(final ViolationType type, final String key, final String message) {
         this.type = type;
-        this.code = code;
+        this.key = key;
         this.message = message;
     }
 
-    private Violation(final ViolationType type, final String code, final String message, final Object[] arguments) {
-        this(type, code, format(message, arguments));
+    private Violation(final ViolationType type, final String key, final String message, final Object[] arguments) {
+        this(type, key, format(message, arguments));
     }
 
     @Override
@@ -33,12 +33,12 @@ public final class Violation implements Comparable<Violation>, Serializable {
             return 1;
         }
 
-        return this.code.compareTo(that.code);
+        return this.key.compareTo(that.key);
     }
 
     @Override
     public int hashCode() {
-        return code != null ? code.hashCode() : 0;
+        return key != null ? key.hashCode() : 0;
     }
 
     @Override
@@ -53,27 +53,27 @@ public final class Violation implements Comparable<Violation>, Serializable {
 
         Violation that = (Violation) o;
 
-        return code != null ? code.equals(that.code) : that.code == null;
+        return key != null ? key.equals(that.key) : that.key == null;
     }
 
     @Override
     public String toString() {
-        return this.code;
+        return this.key;
     }
 
-    static Violation createError(final String code, final String message) {
-        return new Violation(ERROR, code, message);
+    static Violation createError(final String key, final String message) {
+        return new Violation(ERROR, key, message);
     }
 
-    static Violation createError(final String code, final String message, final Object[] arguments) {
-        return new Violation(ERROR, code, message, arguments);
+    static Violation createError(final String key, final String message, final Object[] arguments) {
+        return new Violation(ERROR, key, message, arguments);
     }
 
-    static Violation createWarning(final String code, final String message) {
-        return new Violation(WARNING, code, message);
+    static Violation createWarning(final String key, final String message) {
+        return new Violation(WARNING, key, message);
     }
 
-    static Violation createWarning(final String code, final String message, final Object[] arguments) {
-        return new Violation(WARNING, code, message, arguments);
+    static Violation createWarning(final String key, final String message, final Object[] arguments) {
+        return new Violation(WARNING, key, message, arguments);
     }
 }
