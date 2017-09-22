@@ -12,9 +12,7 @@ import static java.text.MessageFormat.format;
 public final class Violation implements Comparable<Violation>, Serializable {
 
     private final String key;
-
     private final String message;
-
     private final ViolationType type;
 
     private Violation(final ViolationType type, final String key, final String message) {

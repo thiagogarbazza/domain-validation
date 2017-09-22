@@ -1,27 +1,18 @@
 package com.github.thiagogarbazza.domainvalidation;
 
-import com.github.thiagogarbazza.domainvalidation.message.ViolationContext;
 import org.hamcrest.Matcher;
-
-import java.util.ResourceBundle;
 
 import static com.github.thiagogarbazza.domainvalidation.Violation.createError;
 import static com.github.thiagogarbazza.domainvalidation.Violation.createWarning;
-import static java.util.ResourceBundle.getBundle;
 
-class ViolationContextMessageImpl implements ViolationContext {
-
-    private static final ResourceBundle DOMAIN_VALIDATION_RESOURCE = getBundle("domain-validation");
-
-    private final Violations violations;
+class ViolationContextMessageImpl extends AbstractContext implements ViolationContextMessage {
 
     ViolationContextMessageImpl() {
-        violations = new Violations();
+        super();
     }
 
-
     @Override
-    public ViolationContext error(final boolean condition, final String key, final String message) {
+    public ViolationContextMessage error(final boolean condition, final String key, final String message) {
         if (condition) {
             violations.add(createError(key, message));
         }
@@ -30,7 +21,7 @@ class ViolationContextMessageImpl implements ViolationContext {
     }
 
     @Override
-    public ViolationContext error(final boolean condition, final String key, final String message, final Object... args) {
+    public ViolationContextMessage error(final boolean condition, final String key, final String message, final Object... args) {
         if (condition) {
             violations.add(createError(key, message, args));
         }
@@ -39,32 +30,17 @@ class ViolationContextMessageImpl implements ViolationContext {
     }
 
     @Override
-    public ViolationContext error(final Object object, final Matcher<?> matcher, final String key, final String message) {
+    public ViolationContextMessage error(final Object object, final Matcher<?> matcher, final String key, final String message) {
         return error(matcher.matches(object), key, message);
     }
 
     @Override
-    public ViolationContext error(final Object object, final Matcher<?> matcher, final String key, final String message, final Object... args) {
+    public ViolationContextMessage error(final Object object, final Matcher<?> matcher, final String key, final String message, final Object... args) {
         return error(matcher.matches(object), key, message, args);
     }
 
     @Override
-    public void toProcess() {
-        toProcess(false);
-    }
-
-    @Override
-    public void toProcess(final boolean ignoreWarning) {
-        Violations thatViolations = ignoreWarning ? violations.errors() : (Violations) violations.clone();
-        violations.clear();
-
-        if (!thatViolations.isEmpty()) {
-            throw new ViolationException(DOMAIN_VALIDATION_RESOURCE.getString("domain-validation.exception.message"), thatViolations);
-        }
-    }
-
-    @Override
-    public ViolationContext warning(final boolean condition, final String key, final String message) {
+    public ViolationContextMessage warning(final boolean condition, final String key, final String message) {
         if (condition) {
             violations.add(createWarning(key, message));
         }
@@ -73,7 +49,7 @@ class ViolationContextMessageImpl implements ViolationContext {
     }
 
     @Override
-    public ViolationContext warning(final boolean condition, final String key, final String message, final Object... args) {
+    public ViolationContextMessage warning(final boolean condition, final String key, final String message, final Object... args) {
         if (condition) {
             violations.add(createWarning(key, message, args));
         }
@@ -82,12 +58,12 @@ class ViolationContextMessageImpl implements ViolationContext {
     }
 
     @Override
-    public ViolationContext warning(final Object object, final Matcher<?> matcher, final String key, final String message) {
+    public ViolationContextMessage warning(final Object object, final Matcher<?> matcher, final String key, final String message) {
         return warning(matcher.matches(object), key, message);
     }
 
     @Override
-    public ViolationContext warning(final Object object, final Matcher<?> matcher, final String key, final String message, final Object... args) {
+    public ViolationContextMessage warning(final Object object, final Matcher<?> matcher, final String key, final String message, final Object... args) {
         return warning(matcher.matches(object), key, message, args);
     }
 }

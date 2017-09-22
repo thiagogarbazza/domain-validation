@@ -9,11 +9,11 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public class ViolationContextFactory {
 
-    public static com.github.thiagogarbazza.domainvalidation.message.ViolationContext newViolationContext() {
+    public static ViolationContextMessage newViolationContext() {
         return new ViolationContextMessageImpl();
     }
 
-    public static com.github.thiagogarbazza.domainvalidation.resource.ViolationContext newViolationContext(final ResourceBundle resourceBundle) {
+    public static ViolationContextResource newViolationContext(final ResourceBundle resourceBundle) {
         return new ViolationContextResourceImpl(resourceBundle);
     }
 }
