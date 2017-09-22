@@ -1,13 +1,12 @@
 package com.github.thiagogarbazza.domainvalidation;
 
-import lombok.NoArgsConstructor;
-
 import java.util.ResourceBundle;
 
-import static lombok.AccessLevel.PRIVATE;
-
-@NoArgsConstructor(access = PRIVATE)
 public class ViolationContextFactory {
+
+    private ViolationContextFactory() {
+        throw new IllegalStateException("Factory class");
+    }
 
     public static ViolationContextMessage newViolationContext() {
         return new ViolationContextMessageImpl();
