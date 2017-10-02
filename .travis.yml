@@ -21,7 +21,7 @@ script:
   - mvn sonar:sonar
 
 after_success:
-  - ${GPG_IMPORT} > target/gpg.asc
+  - echo ${GPG_IMPORT} > target/gpg.asc
   - gpg --fast-import target/gpg.asc
   - mvn deploy --settings artifacts/deploy/maven-settings.xml
   
