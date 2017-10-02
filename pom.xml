@@ -158,15 +158,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-              <tags>
-                <tag>
-                  <name>todo</name>
-                  <placement>a</placement>
-                  <head>To-Do:</head>
-                </tag>
-              </tags>
-            </configuration>
 
             <executions>
               <execution>
