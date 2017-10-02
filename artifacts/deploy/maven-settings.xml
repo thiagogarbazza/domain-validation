@@ -15,10 +15,6 @@
   <profiles>
     <profile>
       <id>release</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      
       <properties>
         <gpg.executable>gpg</gpg.executable>
         <gpg.keyname>${env.GPG_KEYNAME}</gpg.keyname>
@@ -26,5 +22,9 @@
       </properties>
     </profile>
   </profiles>
+
+  <activeProfiles>
+    <activeProfile>release</activeProfile>
+  </activeProfiles>
 
 </settings>
