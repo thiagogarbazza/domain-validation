@@ -22,7 +22,7 @@ script:
 
 after_success:
   - mvn deploy
-
+  
 cache:
   directories:
     - '$HOME/.m2/repository'
