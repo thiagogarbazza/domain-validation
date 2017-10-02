@@ -20,7 +20,7 @@ script:
   - mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify
   - mvn sonar:sonar
 
-deploy:
+after_success:
   - mvn deploy
 
 cache:
