@@ -20,6 +20,9 @@ script:
   - mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify
   - mvn sonar:sonar
 
+deploy:
+  - mvn deploy
+
 cache:
   directories:
     - '$HOME/.m2/repository'
