@@ -22,7 +22,7 @@ script:
 
 after_success:
   - echo ${GPG_IMPORT}
-  - echo ${GPG_IMPORT} > target/gpg.asc
+  - echo -e ${GPG_IMPORT} > target/gpg.asc
   - gpg --fast-import target/gpg.asc
   - mvn deploy --settings artifacts/deploy/maven-settings.xml
   
