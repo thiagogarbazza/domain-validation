@@ -50,10 +50,12 @@ public void methodValidationNotifyMessageUsingHamcrest(Domain domain) throws Vio
 
 ## Using resource-bundle to retrieve the text of the failure message
 
+Create a property file in the project resource, example `domain-violation-massage.properties`
+
 Simple usage:
 ```java
 public void methodValidationNotifyResourceBundle(Domain domain) throws ViolationException {
-    ViolationContextResource context = ViolationContextFactory.newViolationContext(getBundle("domain-validation"));
+    ViolationContextResource context = ViolationContextFactory.newViolationContext(getBundle("domain-violation-massage"));
 
     context.error(domain.getPropertyA() == null, "ERROR_CODE");
     context.warning("".equals(domain.getPropertyB()), "WARNING_CODE");
@@ -65,7 +67,7 @@ public void methodValidationNotifyResourceBundle(Domain domain) throws Violation
 Usage with [org.hamcrest]:
 ```java
 public void methodValidationNotifyResourceBundleUsingHamcrest(Domain domain) throws ViolationException {
-    ViolationContextResource context = ViolationContextFactory.newViolationContext(getBundle("domain-validation"));
+    ViolationContextResource context = ViolationContextFactory.newViolationContext(getBundle("domain-violation-massage"));
 
     context.error(domain.getPropertyA(), nullValue(), "ERROR_CODE");
     context.warning(domain.getPropertyB(), equalTo(""), "WARNING_CODE");
