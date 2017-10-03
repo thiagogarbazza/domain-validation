@@ -2,7 +2,7 @@ package com.github.thiagogarbazza.domainvalidation;
 
 import org.hamcrest.Matcher;
 
-public interface ViolationContextResource extends Context{
+public interface ViolationContextResource extends Context {
 
     ViolationContextResource error(boolean condition, String key);
 
