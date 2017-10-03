@@ -20,29 +20,57 @@ Example using maven:
 </dependency>
 ```
 
-## Usage
+# Usage
+
+## Informing message text on failure 
 
 Simple usage:
 ```java
-public void onCreateValidation(Domain domain) throws ViolationException {
-  ViolationContext context = new ViolationContext();
+public void methodValidationNotifyMessage(Domain domain) throws ViolationException {
+    ViolationContextMessage context = ViolationContextFactory.newViolationContext();
 
-  context.error(domain.getPropertyA() == null, "ERROR_CODE", "ERROR_MESSAGE");
-  context.warning("".equals(domain.getPropertyB()), "WARNING_CODE", "WARNING_MESSAGE");
+    context.error(domain.getPropertyA() == null, "ERROR_CODE", "ERROR_MESSAGE");
+    context.warning("".equals(domain.getPropertyB()), "WARNING_CODE", "WARNING_MESSAGE");
 
-  context.toProcess();
+    context.toProcess();
 }
 ```
 
 Usage with [org.hamcrest]:
 ```java
-public void onCreateValidation(Domain domain) throws ViolationException {
-  ViolationContext context = new ViolationContext();
+public void methodValidationNotifyMessageUsingHamcrest(Domain domain) throws ViolationException {
+    ViolationContextMessage context = ViolationContextFactory.newViolationContext();
 
-  context.error(domain.getPropertyA(), nullValue(), "ERROR_CODE", "ERROR_MESSAGE");
-  context.warning(domain.getPropertyB(), equalTo(""), "WARNING_CODE", "WARNING_MESSAGE");
+    context.error(domain.getPropertyA(), nullValue(), "ERROR_CODE", "ERROR_MESSAGE");
+    context.warning(domain.getPropertyB(), equalTo(""), "WARNING_CODE", "WARNING_MESSAGE");
 
-  context.toProcess();
+    context.toProcess();
+}
+```
+
+## Using resource-bundle to retrieve the text of the failure message
+
+Simple usage:
+```java
+public void methodValidationNotifyResourceBundle(Domain domain) throws ViolationException {
+    ViolationContextResource context = ViolationContextFactory.newViolationContext(getBundle("domain-validation"));
+
+    context.error(domain.getPropertyA() == null, "ERROR_CODE");
+    context.warning("".equals(domain.getPropertyB()), "WARNING_CODE");
+
+    context.toProcess();
+}
+```
+
+Usage with [org.hamcrest]:
+```java
+public void methodValidationNotifyResourceBundleUsingHamcrest(Domain domain) throws ViolationException {
+    ViolationContextResource context = ViolationContextFactory.newViolationContext(getBundle("domain-validation"));
+
+    context.error(domain.getPropertyA(), nullValue(), "ERROR_CODE");
+    context.warning(domain.getPropertyB(), equalTo(""), "WARNING_CODE");
+
+    context.toProcess();
 }
 ```
 
