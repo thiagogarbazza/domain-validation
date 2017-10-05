@@ -11,7 +11,7 @@ import static lombok.AccessLevel.PACKAGE;
 
 @Getter
 @NoArgsConstructor(access = PACKAGE)
-class Violations extends TreeSet<Violation> {
+public class Violations extends TreeSet<Violation> {
 
     Violations errors() {
         return filterByType(ERROR);
