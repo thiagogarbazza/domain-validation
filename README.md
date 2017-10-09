@@ -16,7 +16,7 @@ Example using maven:
 <dependency>
   <groupId>com.github.thiagogarbazza</groupId>
   <artifactId>domain-validation</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 
