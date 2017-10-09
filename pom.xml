@@ -7,7 +7,7 @@
 
   <groupId>com.github.thiagogarbazza</groupId>
   <artifactId>domain-validation</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
 
   <name>Domain validation</name>
   <description>A simple framework to write domain validation.</description>
