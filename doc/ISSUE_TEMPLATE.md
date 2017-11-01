@@ -1,5 +1,5 @@
-* For issues or feature requests related to the code **in this repository** file a Github issue.
-* For general technical questions, post a question on [StackOverflow](http://stackoverflow.com/) tagged appropriately.
+You are in the right place?
+  * Please, for general technical questions, post a question on [StackOverflow](http://stackoverflow.com/) tagged appropriately.
 
 > [provide general introduction to the issue logging and why it is relevant to this repository]
 
